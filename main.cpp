@@ -32,19 +32,16 @@ int main()
     vector<Arrow> arrows;
     int directions[100];
 
-    srand(time(nullptr));
 
-    for(int & direction : directions){
-      direction=rand()%4+1;
+    for(int i=0;i<100;i++){
+        directions[i]=rand()%4+1;
+        cout<<directions[i]<<" ";
     }
+    Arrow *arr = new Arrow(3);
 
 
     for (int i=0;i<100;i++){
-        switch (directions[i])
-            case 1:
-                //arrows[i] = new ArrowLeft;
-                break;
-    }
+      arrows[i] =  Arrow(directions[i]);}
 
 
 
@@ -108,7 +105,7 @@ int main()
         drawBackground(window);
 
 
-
+arr->Draw(window);
             arr1.Draw(window);
             arr1.Move();
 

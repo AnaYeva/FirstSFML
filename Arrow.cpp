@@ -37,6 +37,8 @@ Arrow::Arrow(int type) {
             arrow.setPosition(330,start_Pos);
             arrow.setFillColor(sf::Color::Cyan);
             break;
+        default:
+            break;
 
     }
 }

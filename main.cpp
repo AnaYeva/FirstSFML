@@ -1,10 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Arrow.h"
-#include "ArrowDown.h"
-#include "ArrowLeft.h"
-#include "ArrowUp.h"
-#include "ArrowRight.h"
 #include "background.h"
 #include <cstdlib>
 #include "values.h"
@@ -21,27 +17,37 @@ int main()
     settings.antialiasingLevel = 100;
 
     int score=0;
+    bool hit=false;
+
+    Font font;
+    font.loadFromFile("arial.ttf");
+
+    Text text;
+    text.setFont(font);
+
+    text.setString("Score: "+to_string(score));
+
+    text.setCharacterSize(32);
+
+    text.setFillColor(sf::Color::White);
+
+
+    //text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+
 
     Clock clock;
 
-    ArrowRight arr1;
-    ArrowDown arr2;
-    ArrowUp arr3;
-    ArrowLeft arr4;
 
-    vector<Arrow> arrows;
-    int directions[100];
+    vector<Arrow*> arrows;
+    int directions[amountOfArr];
 
 
-    for(int i=0;i<100;i++){
+    for(int i=0;i<amountOfArr;i++){
         directions[i]=rand()%4+1;
-        cout<<directions[i]<<" ";
     }
-    Arrow *arr = new Arrow(3);
 
-
-    for (int i=0;i<100;i++){
-      arrows[i] =  Arrow(directions[i]);}
+    for (int i=0;i<amountOfArr;i++){
+      arrows.push_back(new Arrow(directions[i]));}
 
 
 
@@ -62,26 +68,83 @@ int main()
                 switch(event.key.code){
                     case Keyboard::Left:
                         case Keyboard::A:
-                        std::cout<<"Left was pushed";
-                        if (arr4.arrow.getPosition().y>500 and arr4.arrow.getPosition().y<520){
-                            score+=1;
-                            arr4.arrow.setPosition(30,30);
-                        }else score-=1;
+                        hit = false;
+                        for(int i=0;i<amountOfArr;i++){
+                            if(directions[i]==1) {
+                                if(arrows[i]->arrow.getPosition().y>490 and arrows[i]->arrow.getPosition().y<530){
+                                    score+=1;
+                                    int x= arrows[i]->arrow.getPosition().x;
+                                    int y= arrows[i]->arrow.getPosition().y;
+                                    arrows[i]->arrow.setPosition(x,y-respawn);
+                                    hit = true;
+                                }
+                            }
+                        }
+                        if (!hit){
+                            score-=1;
+                        }
+                        sc;
                         break;
 
                         case Keyboard::Right:
                             case Keyboard::D:
-                        std::cout<<"Right was pushed";
+                                hit = false;
+                        for(int i=0;i<amountOfArr;i++){
+                            if(directions[i]==4) {
+                                if(arrows[i]->arrow.getPosition().y>490 and arrows[i]->arrow.getPosition().y<530){
+                                    score+=1;
+                                    int x= arrows[i]->arrow.getPosition().x;
+                                    int y= arrows[i]->arrow.getPosition().y;
+                                    arrows[i]->arrow.setPosition(x,y-respawn);
+                                    hit = true;
+                                    }
+                            }
+                        }
+                        if (!hit){
+                            score-=1;
+                        }
+                        sc;
                         break;
 
                         case Keyboard::Up:
                             case Keyboard::W:
-                        std::cout<<"Up was pushed";
+                        hit = false;
+                        for(int i=0;i<amountOfArr;i++){
+                            if(directions[i]==2) {
+                                if(arrows[i]->arrow.getPosition().y>500 and arrows[i]->arrow.getPosition().y<540){
+                                    score+=1;
+                                    int x= arrows[i]->arrow.getPosition().x;
+                                    int y= arrows[i]->arrow.getPosition().y;
+                                    arrows[i]->arrow.setPosition(x,y-respawn);
+                                    hit = true;
+                                    }
+                            }
+                        }
+                        if (!hit){
+                            score-=1;
+                        }
+                        sc;
                         break;
+
 
                         case Keyboard::Down:
                             case Keyboard::S:
-                        std::cout<<"Down was pushed";
+                                hit = false;
+                        for(int i=0;i<amountOfArr;i++){
+                            if(directions[i]==3) {
+                                if(arrows[i]->arrow.getPosition().y>500 and arrows[i]->arrow.getPosition().y<540){
+                                    score+=1;
+                                    int x= arrows[i]->arrow.getPosition().x;
+                                    int y= arrows[i]->arrow.getPosition().y;
+                                    arrows[i]->arrow.setPosition(x,y-respawn);
+                                    hit = true;
+                                    }
+                            }
+                        }
+                        if (!hit){
+                            score-=1;
+                        }
+                        sc;
                         break;
 
                     default:
@@ -90,40 +153,28 @@ int main()
             }
         }
 
-
-
-        if (arr4.overTheScreen()){
-           arr4.arrow.setPosition(30,30);
-            score-=1;
-        }
-        if (arr3.overTheScreen()){
-            score-=1;
-        }
-
-
         window.clear(Color(50, 50, 50));
         drawBackground(window);
+        window.draw(text);
 
-
-arr->Draw(window);
-            arr1.Draw(window);
-            arr1.Move();
-
-            if (clock.getElapsedTime().asSeconds()>spawn_Frequency){
-                arr2.Draw(window);
-                arr2.Move();
+        for(int i =0;i<amountOfArr;i++){
+            if(clock.getElapsedTime().asSeconds()>i*spawn_Frequency){
+                arrows[i]->Draw(window);
+                arrows[i]->Move();
             }
-            if (clock.getElapsedTime().asSeconds()>2*spawn_Frequency){
-                arr3.Draw(window);
-                arr3.Move();
+        }
+        for(int i =0;i<amountOfArr;i++){
+            if(arrows[i]->overTheScreen()){
+                int x= arrows[i]->arrow.getPosition().x;
+                int y= arrows[i]->arrow.getPosition().y;
+                arrows[i]->arrow.setPosition(x,y-respawn);
+                score-=1;
+                sc;
             }
-            if (clock.getElapsedTime().asSeconds()>3*spawn_Frequency){
-                arr4.Draw(window);
-                arr4.Move();
-            }
+        }
 
 
-            window.display();
+        window.display();
     }
     return 0;
 }

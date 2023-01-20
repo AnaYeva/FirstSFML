@@ -56,7 +56,7 @@ void Arrow::Move(){
 }
 
 bool Arrow::overTheScreen(){
-    if (arrow.getPosition().y>650)return true;
+    if (arrow.getPosition().y>550)return true;
     else return false;
 }
 

@@ -10,6 +10,5 @@ public:
     void Move();
     void Draw(sf::RenderWindow &window) const;
     bool overTheScreen();
-    ~Arrow();
 };
 

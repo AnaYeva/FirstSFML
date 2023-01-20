@@ -17,7 +17,7 @@ int main()
     settings.antialiasingLevel = 100;
 
     int score=0;
-    bool hit=false;
+    bool hit;
 
     Font font;
     font.loadFromFile("arial.ttf");
@@ -30,10 +30,6 @@ int main()
     text.setCharacterSize(32);
 
     text.setFillColor(sf::Color::White);
-
-
-    //text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-
 
     Clock clock;
 
@@ -73,8 +69,8 @@ int main()
                             if(directions[i]==1) {
                                 if(arrows[i]->arrow.getPosition().y>490 and arrows[i]->arrow.getPosition().y<530){
                                     score+=1;
-                                    int x= arrows[i]->arrow.getPosition().x;
-                                    int y= arrows[i]->arrow.getPosition().y;
+                                    float x= arrows[i]->arrow.getPosition().x;
+                                    float y= arrows[i]->arrow.getPosition().y;
                                     arrows[i]->arrow.setPosition(x,y-respawn);
                                     hit = true;
                                 }
@@ -93,8 +89,8 @@ int main()
                             if(directions[i]==4) {
                                 if(arrows[i]->arrow.getPosition().y>490 and arrows[i]->arrow.getPosition().y<530){
                                     score+=1;
-                                    int x= arrows[i]->arrow.getPosition().x;
-                                    int y= arrows[i]->arrow.getPosition().y;
+                                    float x= arrows[i]->arrow.getPosition().x;
+                                    float y= arrows[i]->arrow.getPosition().y;
                                     arrows[i]->arrow.setPosition(x,y-respawn);
                                     hit = true;
                                     }
@@ -113,8 +109,8 @@ int main()
                             if(directions[i]==2) {
                                 if(arrows[i]->arrow.getPosition().y>500 and arrows[i]->arrow.getPosition().y<540){
                                     score+=1;
-                                    int x= arrows[i]->arrow.getPosition().x;
-                                    int y= arrows[i]->arrow.getPosition().y;
+                                    float x= arrows[i]->arrow.getPosition().x;
+                                    float y= arrows[i]->arrow.getPosition().y;
                                     arrows[i]->arrow.setPosition(x,y-respawn);
                                     hit = true;
                                     }
@@ -134,8 +130,8 @@ int main()
                             if(directions[i]==3) {
                                 if(arrows[i]->arrow.getPosition().y>500 and arrows[i]->arrow.getPosition().y<540){
                                     score+=1;
-                                    int x= arrows[i]->arrow.getPosition().x;
-                                    int y= arrows[i]->arrow.getPosition().y;
+                                    float x= arrows[i]->arrow.getPosition().x;
+                                    float y= arrows[i]->arrow.getPosition().y;
                                     arrows[i]->arrow.setPosition(x,y-respawn);
                                     hit = true;
                                     }
@@ -165,8 +161,8 @@ int main()
         }
         for(int i =0;i<amountOfArr;i++){
             if(arrows[i]->overTheScreen()){
-                int x= arrows[i]->arrow.getPosition().x;
-                int y= arrows[i]->arrow.getPosition().y;
+                float x= arrows[i]->arrow.getPosition().x;
+                float y= arrows[i]->arrow.getPosition().y;
                 arrows[i]->arrow.setPosition(x,y-respawn);
                 score-=1;
                 sc;
